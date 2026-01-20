@@ -9,7 +9,7 @@ export default function Sidebar({ activeTool, onSelect }) {
 
 			<nav className="flex-1 p-4 space-y-2">
 				<SidebarItem
-					label="Kelly Criterion"
+					label="Kelly Criterion Calculator"
 					active={activeTool === "kelly"}
 					onClick={() => onSelect("kelly")}
 				/>
@@ -17,6 +17,12 @@ export default function Sidebar({ activeTool, onSelect }) {
 					label= "Dutching Calculator"
 					active={activeTool === "dutching"}
 					onClick={() => onSelect("dutching")}
+				/>
+
+				<SidebarItem
+					label= "Portfolio Exposure Calculator"
+					active={activeTool === "exposure"}
+					onClick={() => onSelect("exposure")}
 				/>
 			</nav>
 		</aside>
