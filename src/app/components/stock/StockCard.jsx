@@ -1,5 +1,6 @@
 export default function StockCard({ stock }) {
-	const positive = stock.changePercent >= 0
+	const changePercentNum = Number(stock.changePercent)
+	const positive = changePercentNum >= 0
 
 	return (
 		<div className="p-4 bg-gray-900 border border-gray-700 rounded-lg">
@@ -20,7 +21,7 @@ export default function StockCard({ stock }) {
 						<tr><td className="font-semibold">CEO</td><td>{stock.ceo}</td></tr>
 						<tr><td className="font-semibold">Website</td><td><a className="text-blue-400" href={stock.website} target="_blank">{stock.website}</a></td></tr>
 						<tr><td className="font-semibold">Price</td><td>${stock.price}</td></tr>
-						<tr><td className="font-semibold">Change</td><td className={positive ? "text-green-400" : "text-red-400"}>{stock.changePercent.toFixed(2)}%</td></tr>
+						<tr><td className="font-semibold">Change</td><td className={positive ? "text-green-400" : "text-red-400"}>{!isNaN(changePercentNum) ? changePercentNum.toFixed(2) + '%' : '-'}</td></tr>
 						<tr><td className="font-semibold">52 Week High</td><td>${stock.week52High}</td></tr>
 						<tr><td className="font-semibold">52 Week Low</td><td>${stock.week52Low}</td></tr>
 						<tr><td className="font-semibold">Market Cap</td><td>${stock.marketCap?.toLocaleString()}</td></tr>
