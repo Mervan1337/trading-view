@@ -62,7 +62,6 @@ export default function StockCard({ stock }) {
 						<tr><td className="font-semibold">Exchange</td><td>{stock.exchange}</td></tr>
 						<tr><td className="font-semibold">Industry</td><td>{stock.industry}</td></tr>
 						<tr><td className="font-semibold">Country</td><td>{stock.country}</td></tr>
-						<tr><td className="font-semibold">CEO</td><td>{stock.ceo}</td></tr>
 						<tr><td className="font-semibold">Website</td><td><a className="text-blue-400" href={stock.website} target="_blank">{stock.website}</a></td></tr>
 						<tr><td className="font-semibold">Price</td><td>${stock.price}</td></tr>
 						<tr><td className="font-semibold">Change</td><td className={positive ? "text-green-400" : "text-red-400"}>{!isNaN(changePercentNum) ? changePercentNum.toFixed(2) + '%' : '-'}</td></tr>

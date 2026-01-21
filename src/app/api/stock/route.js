@@ -46,7 +46,6 @@ export async function GET(request) {
             exchange: profile.exchange || "Unknown",
             industry: profile.finnhubIndustry || "Unknown",
             website: profile.weburl || "N/A",
-            ceo: profile.ceo || "N/A",
             country: profile.country || "N/A",
             logo: profile.logo || "",
             price: quote.c,
