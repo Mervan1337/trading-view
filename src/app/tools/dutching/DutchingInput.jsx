@@ -1,4 +1,6 @@
 import React from 'react';
+// Make sure you import your Tooltip component here
+import Tooltip from "@/app/components/ui/Tooltip"
 
 const DutchingInput = ({ 
   totalStake, 
@@ -12,13 +14,23 @@ const DutchingInput = ({
   const formatCurrency = (num) => 
     new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(num);
 
+  // Helper style for aligning text with the tooltip
+  const labelStyle = { 
+    display: 'flex', 
+    alignItems: 'center', 
+    gap: '5px', // Space between text and tooltip
+    fontWeight: 'bold', 
+    marginBottom: '5px' 
+  };
+
   return (
     <div className="dutching-input">
       {/* Global Stake Input */}
       <div style={{ marginBottom: '20px', padding: '15px', background: '#f8f9fa', borderRadius: '8px' }}>
-        <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '5px' }}>
+        <div style={labelStyle}>
           Total Stake to Invest ($)
-        </label>
+          <Tooltip text="The total budget you want to split across all your different bets." />
+        </div>
         <input
           type="number"
           value={totalStake}
@@ -29,13 +41,28 @@ const DutchingInput = ({
 
       {/* The Betting Table */}
       <div style={{ marginBottom: '20px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: '10px', fontWeight: 'bold', paddingBottom: '10px', borderBottom: '1px solid #ddd' }}>
-          <div>Decimal Odds (Input)</div>
-          <div>Calculated Stake</div>
-          <div>Potential Return</div>
-          <div></div>
+        {/* Table Headers with Tooltips */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: '10px', paddingBottom: '10px', borderBottom: '1px solid #ddd' }}>
+          
+          <div style={labelStyle}>
+            Decimal Odds
+            <Tooltip text="Enter the decimal odds for this selection (e.g., 2.50 or 3.00)." />
+          </div>
+          
+          <div style={labelStyle}>
+            Calculated Stake
+            <Tooltip text="The exact amount you need to bet on this selection to equal profit." />
+          </div>
+          
+          <div style={labelStyle}>
+            Potential Return
+            <Tooltip text="The total payout if this specific selection wins. In Dutching, this should be the same for all rows." />
+          </div>
+          
+          <div></div> {/* Empty column for delete button */}
         </div>
 
+        {/* Rows */}
         {rows.map((row) => (
           <div key={row.id} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: '10px', alignItems: 'center', marginTop: '10px' }}>
             {/* 1. Odds Input */}
