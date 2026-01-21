@@ -76,7 +76,6 @@ export default function StockCard({ stock }) {
 						<tr><td className="font-semibold">EPS</td><td>{stock.eps ?? '-'}</td></tr>
 						<tr><td className="font-semibold">Dividend Yield</td><td>{stock.dividendYield ?? '-'}</td></tr>
 						<tr><td className="font-semibold">Beta</td><td>{stock.beta ?? '-'}</td></tr>
-						<tr><td className="font-semibold">Price Target</td><td>{stock.priceTarget ?? '-'}</td></tr>
 					</tbody>
 				</table>
 			</div>

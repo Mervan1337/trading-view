@@ -62,7 +62,6 @@ export async function GET(request) {
             eps: metrics.metric?.epsNormalizedAnnual || null,
             dividendYield: metrics.metric?.dividendYieldIndicatedAnnual || null,
             beta: metrics.metric?.beta || null,
-            priceTarget: target.targetMean || null
         })
     } catch (err) {
         console.error(err)
