@@ -1,5 +1,4 @@
 import React from 'react';
-// Make sure you import your Tooltip component here
 import Tooltip from "@/app/components/ui/Tooltip"
 
 const DutchingInput = ({ 
@@ -14,80 +13,116 @@ const DutchingInput = ({
   const formatCurrency = (num) => 
     new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(num);
 
-  // Helper style for aligning text with the tooltip
+  // --- STYLES ---
+  
+  // Style for the labels
   const labelStyle = { 
     display: 'flex', 
     alignItems: 'center', 
-    gap: '5px', // Space between text and tooltip
+    gap: '5px',
     fontWeight: 'bold', 
-    marginBottom: '5px' 
+    marginBottom: '8px',
+    color: '#e5e7eb' // Light gray text for readability on dark
+  };
+
+  // Style for the Input Fields (Dark Mode)
+  const inputStyle = {
+    padding: '10px',
+    width: '100%',
+    fontSize: '15px',
+    borderRadius: '6px',
+    border: '1px solid #4b5563', // Dark border
+    background: '#374151',        // Dark Gray background
+    color: '#ffffff'              // White text
+  };
+
+  // Style for the Read-Only result boxes
+  const readOnlyStyle = {
+    padding: '10px',
+    borderRadius: '6px',
+    background: '#1f2937',        // Very dark gray (almost black)
+    color: '#ffffff',             // White text
+    border: '1px solid #374151',
+    minHeight: '40px',
+    display: 'flex',
+    alignItems: 'center'
   };
 
   return (
     <div className="dutching-input">
-      {/* Global Stake Input */}
-      <div style={{ marginBottom: '20px', padding: '15px', background: '#f8f9fa', borderRadius: '8px' }}>
+      
+      {/* --- Global Stake Input --- */}
+      <div style={{ marginBottom: '25px', padding: '15px', background: '#262626', borderRadius: '8px', border: '1px solid #404040' }}>
         <div style={labelStyle}>
           Total Stake to Invest ($)
           <Tooltip text="The total budget you want to split across all your different bets." />
         </div>
-        <input
-          type="number"
-          value={totalStake}
-          onChange={(e) => setTotalStake(parseFloat(e.target.value) || 0)}
-          style={{ padding: '10px', width: '100%', maxWidth: '200px', fontSize: '16px' }}
-        />
+        <div style={{ maxWidth: '200px' }}>
+            <input
+            type="number"
+            value={totalStake}
+            onChange={(e) => setTotalStake(parseFloat(e.target.value) || 0)}
+            style={inputStyle}
+            />
+        </div>
       </div>
 
-      {/* The Betting Table */}
+      {/* --- The Betting Table --- */}
       <div style={{ marginBottom: '20px' }}>
-        {/* Table Headers with Tooltips */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: '10px', paddingBottom: '10px', borderBottom: '1px solid #ddd' }}>
-          
+        
+        {/* Table Headers */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: '15px', paddingBottom: '10px', borderBottom: '1px solid #404040', marginBottom: '15px' }}>
           <div style={labelStyle}>
             Decimal Odds
-            <Tooltip text="Enter the decimal odds for this selection (e.g., 2.50 or 3.00)." />
+            <Tooltip text="Enter the decimal odds (e.g., 2.50)." />
           </div>
-          
           <div style={labelStyle}>
             Calculated Stake
-            <Tooltip text="The exact amount you need to bet on this selection to equal profit." />
+            <Tooltip text="Amount to bet on this selection." />
           </div>
-          
           <div style={labelStyle}>
             Potential Return
-            <Tooltip text="The total payout if this specific selection wins. In Dutching, this should be the same for all rows." />
+            <Tooltip text="Payout if this selection wins." />
           </div>
-          
-          <div></div> {/* Empty column for delete button */}
+          <div></div> 
         </div>
 
         {/* Rows */}
         {rows.map((row) => (
-          <div key={row.id} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: '10px', alignItems: 'center', marginTop: '10px' }}>
+          <div key={row.id} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: '15px', alignItems: 'center', marginBottom: '12px' }}>
+            
             {/* 1. Odds Input */}
             <input
               type="number"
               placeholder="e.g. 2.00"
               value={row.odds}
               onChange={(e) => onOddsChange(row.id, e.target.value)}
-              style={{ padding: '8px', fontSize: '15px' }}
+              style={inputStyle}
             />
 
             {/* 2. Calculated Stake (Read Only) */}
-            <div style={{ background: '#eef', padding: '8px', borderRadius: '4px' }}>
+            <div style={readOnlyStyle}>
               {row.stake ? formatCurrency(row.stake) : '-'}
             </div>
 
             {/* 3. Row Return (Read Only) */}
-            <div style={{ background: '#eef', padding: '8px', borderRadius: '4px' }}>
+            <div style={readOnlyStyle}>
               {row.return ? formatCurrency(row.return) : '-'}
             </div>
 
             {/* 4. Remove Button */}
             <button 
               onClick={() => onRemove(row.id)}
-              style={{ background: '#ff4d4d', color: 'white', border: 'none', padding: '8px 12px', borderRadius: '4px', cursor: 'pointer' }}
+              style={{ 
+                background: '#ef4444', 
+                color: 'white', 
+                border: 'none', 
+                padding: '0 15px', 
+                height: '42px', // Match input height
+                borderRadius: '6px', 
+                cursor: 'pointer',
+                fontSize: '16px'
+            }}
             >
               ✕
             </button>
@@ -97,7 +132,16 @@ const DutchingInput = ({
 
       <button 
         onClick={onAdd}
-        style={{ background: '#007bff', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '4px', cursor: 'pointer', fontSize: '14px' }}
+        style={{ 
+            background: '#3b82f6', // Bright Blue
+            color: 'white', 
+            border: 'none', 
+            padding: '10px 20px', 
+            borderRadius: '6px', 
+            cursor: 'pointer', 
+            fontSize: '14px',
+            fontWeight: '600'
+        }}
       >
         + Add Selection
       </button>
