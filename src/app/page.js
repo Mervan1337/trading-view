@@ -6,6 +6,7 @@ import KellyCalculator from "./tools/kelly/components/KellyCalculator"
 import DutchingCalculator from "./tools/dutching/DutchingCalculator"
 import PortfolioExposureCalculator from "./tools/portfolio/PortfolioExposureCalculator"
 import StockSearch from "./components/stock/StockSearch"
+import StockCompare from "./components/stock/StockCompare"
 
 export default function HomePage() {
 	const [activeTool, setActiveTool] = useState("kelly")
@@ -21,6 +22,7 @@ export default function HomePage() {
         		{activeTool === "dutching" && <DutchingCalculator />}
 				{activeTool === "exposure" && <PortfolioExposureCalculator />}
 				{activeTool === "stockInformation" && <StockSearch />}
+				{activeTool === "stockcompare" && <StockCompare />}
 
 			</main>
 		</div>

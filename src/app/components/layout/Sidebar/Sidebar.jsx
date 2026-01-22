@@ -30,6 +30,12 @@ export default function Sidebar({ activeTool, onSelect }) {
 					active={activeTool === "stockInformation"}
 					onClick={() => onSelect("stockInformation")}
 				/>
+
+				<SidebarItem
+					label= "Stock Compare"
+					active={activeTool === "stockcompare"}
+					onClick={() => onSelect("stockcompare")}
+				/>
 			</nav>
 		</aside>
 	)
