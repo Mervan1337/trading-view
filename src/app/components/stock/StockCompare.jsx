@@ -1,44 +1,58 @@
-"use client"
+import MetricRow from "./MetricRow"
+import ConfidenceBadge from "./ConfidenceBadge"
+import { calculateConfidence } from "./utils/calculateConfidence"
+import { compareToIndex } from "./utils/compareToIndex"
+import { riskAdjustedScore } from "./utils/riskAdjustedScore"
 
-import { useState } from "react"
-import StockCompareSearch from "./StockCompareSearch"
-import StockCompareTable from "./StockCompareTable"
-import StockCompareAnalysis from "./StockCompareAnalysis"
-import { analyzeStocks } from "../../tools/analyzer/StockAnalyzer"
-
-export default function StockCompare() {
-	const [stockA, setStockA] = useState(null)
-	const [stockB, setStockB] = useState(null)
-	const [analysis, setAnalysis] = useState([])
-
-	function runAnalysis() {
-		if (!stockA || !stockB) return
-		setAnalysis(analyzeStocks(stockA, stockB))
-	}
+export default function StockCompare({ a, b }) {
+	const aConfidence = calculateConfidence(a)
+	const bConfidence = calculateConfidence(b)
 
 	return (
-		<div className="p-6 text-white">
-			<h2 className="text-xl font-bold mb-4">Stock Comparison</h2>
-
-			<div className="grid grid-cols-2 gap-4 mb-6">
-				<StockCompareSearch label="Stock A" onSelect={setStockA} />
-				<StockCompareSearch label="Stock B" onSelect={setStockB} />
+		<div className="bg-gray-900 p-6 rounded-lg mt-6">
+			<div className="flex justify-between mb-4">
+				<ConfidenceBadge score={aConfidence} label={a.symbol} />
+				<ConfidenceBadge score={bConfidence} label={b.symbol} />
 			</div>
 
-			{stockA && stockB && (
-				<>
-					<StockCompareTable a={stockA} b={stockB} />
+			<table className="w-full text-sm border-collapse">
+				<thead>
+					<tr className="text-gray-400 border-b border-gray-700">
+						<th className="px-2 py-1"></th>
+						<th className="px-2 py-1">{a.symbol}</th>
+						<th className="px-2 py-1">{b.symbol}</th>
+					</tr>
+				</thead>
+				<tbody className="text-white">
+					<MetricRow label="Price" aValue={a.price} bValue={b.price} />
+					<MetricRow label="PE Ratio" aValue={a.peRatio} bValue={b.peRatio} higherIsBetter={false} />
+					<MetricRow label="EPS" aValue={a.eps} bValue={b.eps} />
+					<MetricRow label="Market Cap" aValue={a.marketCap} bValue={b.marketCap} />
+					<MetricRow label="Dividend Yield" aValue={a.dividendYield} bValue={b.dividendYield} />
+					<MetricRow label="Beta" aValue={a.beta} bValue={b.beta} higherIsBetter={false} />
+					<MetricRow label="Momentum %" aValue={a.changePercent} bValue={b.changePercent} />
+					<MetricRow label="Risk Adjusted Score" aValue={riskAdjustedScore(a)} bValue={riskAdjustedScore(b)} />
+				</tbody>
+			</table>
 
-					<button
-						onClick={runAnalysis}
-						className="mt-4 bg-blue-600 px-4 py-2 rounded"
-					>
-						Run Analysis
-					</button>
-
-					<StockCompareAnalysis analysis={analysis} />
-				</>
-			)}
+			<div className="mt-6 grid grid-cols-2 gap-4 text-xs text-gray-300">
+				<div>
+					<h4 className="font-semibold mb-1">{a.symbol} vs Index</h4>
+					<ul>
+						{compareToIndex(a).map((item, i) => (
+							<li key={i}>• {item}</li>
+						))}
+					</ul>
+				</div>
+				<div>
+					<h4 className="font-semibold mb-1">{b.symbol} vs Index</h4>
+					<ul>
+						{compareToIndex(b).map((item, i) => (
+							<li key={i}>• {item}</li>
+						))}
+					</ul>
+				</div>
+			</div>
 		</div>
 	)
 }
