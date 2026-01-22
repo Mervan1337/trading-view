@@ -24,15 +24,22 @@ export default function StockCompare({ a, b }) {
 					</tr>
 				</thead>
 				<tbody className="text-white">
-					<MetricRow label="Price" aValue={a.price} bValue={b.price} />
-					<MetricRow label="PE Ratio" aValue={a.peRatio} bValue={b.peRatio} higherIsBetter={false} />
-					<MetricRow label="EPS" aValue={a.eps} bValue={b.eps} />
-					<MetricRow label="Market Cap" aValue={a.marketCap} bValue={b.marketCap} />
-					<MetricRow label="Dividend Yield" aValue={a.dividendYield} bValue={b.dividendYield} />
-					<MetricRow label="Beta" aValue={a.beta} bValue={b.beta} higherIsBetter={false} />
-					<MetricRow label="Momentum %" aValue={a.changePercent} bValue={b.changePercent} />
-					<MetricRow label="Risk Adjusted Score" aValue={riskAdjustedScore(a)} bValue={riskAdjustedScore(b)} />
-				</tbody>
+                    <MetricRow label="Price" aValue={a.price} bValue={b.price} />
+                    <MetricRow label="Change %" aValue={a.changePercent} bValue={b.changePercent} />
+                    <MetricRow label="Open" aValue={a.open} bValue={b.open} />
+                    <MetricRow label="High" aValue={a.high} bValue={b.high} />
+                    <MetricRow label="Low" aValue={a.low} bValue={b.low} />
+                    <MetricRow label="Previous Close" aValue={a.prevClose} bValue={b.prevClose} />
+                    <MetricRow label="Volume" aValue={a.volume} bValue={b.volume} />
+                    <MetricRow label="PE Ratio" aValue={a.peRatio} bValue={b.peRatio} higherIsBetter={false} />
+                    <MetricRow label="EPS" aValue={a.eps} bValue={b.eps} />
+                    <MetricRow label="Market Cap" aValue={a.marketCap} bValue={b.marketCap} />
+                    <MetricRow label="Dividend Yield" aValue={a.dividendYield} bValue={b.dividendYield} />
+                    <MetricRow label="Beta" aValue={a.beta} bValue={b.beta} higherIsBetter={false} />
+                    <MetricRow label="52 Week High" aValue={a.week52High} bValue={b.week52High} />
+                    <MetricRow label="52 Week Low" aValue={a.week52Low} bValue={b.week52Low} />
+                    <MetricRow label="Risk Adjusted Score" aValue={riskAdjustedScore(a)} bValue={riskAdjustedScore(b)} />
+                </tbody>
 			</table>
 
 			<div className="mt-6 grid grid-cols-2 gap-4 text-xs text-gray-300">
