@@ -7,6 +7,7 @@ import DutchingCalculator from "./tools/dutching/DutchingCalculator"
 import PortfolioExposureCalculator from "./tools/portfolio/PortfolioExposureCalculator"
 import StockSearch from "./components/stock/StockSearch"
 import CompareStocks from "./components/stock/CompareStock"
+import StockMonteCarlo from "./components/montecarlo-simulations/StockMonteCarlo"
 
 export default function HomePage() {
 	const [activeTool, setActiveTool] = useState("kelly")
@@ -23,6 +24,7 @@ export default function HomePage() {
 				{activeTool === "exposure" && <PortfolioExposureCalculator />}
 				{activeTool === "stockInformation" && <StockSearch />}
 				{activeTool === "stockcompare" && <CompareStocks />}
+				{activeTool === "montecarlo" && <StockMonteCarlo />}
 
 			</main>
 		</div>

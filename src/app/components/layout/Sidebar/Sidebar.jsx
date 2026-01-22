@@ -36,6 +36,12 @@ export default function Sidebar({ activeTool, onSelect }) {
 					active={activeTool === "stockcompare"}
 					onClick={() => onSelect("stockcompare")}
 				/>
+
+				<SidebarItem
+					label= "Monte Carlo Simulation"
+					active={activeTool === "montecarlo"}
+					onClick={() => onSelect("montecarlo")}
+				/>
 			</nav>
 		</aside>
 	)
